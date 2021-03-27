@@ -16,10 +16,10 @@
         <div class="card shadow-lg" style="width: 18rem;">
           <img class="img-fluid"  src="<%= asset_path('create21.jpg')%>" alt="default_avatar"/>
           <div class="card-body">
-            <h3 class="card-title"><%= record.title%></h3>
+            <h3 class="card-title"><%= record.title%><%= record.id%></h3>
             <p class="card-text">Price: <%= record.price %>$</p>
 
-            <%= button_to 'Add to Cart', {:controller => "orders", :action => "create", product_id: record.id} , 
+            <%= button_to 'Add to Cart', {:controller => "orders", :action => "create", product_id: record.id}, 
             :method=>:post, class: "btn btn-lg btn-warning text-light d-block mx-auto" %>
             <span> <%= hasAdded?(@current_user, record.id) ? 'already added to cart' : '' %> </span>
           </div>
@@ -27,8 +27,7 @@
       </div>
     <% end %>
   </div>
+  <%= link_to 'New Product for Admin only to add new products no role is added yet so any one can add new product', new_product_path %>
 </div>
 
 <br>
-
-<%= link_to 'New Product', new_product_path %>

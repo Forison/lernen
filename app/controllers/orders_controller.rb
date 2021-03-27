@@ -1,28 +1,31 @@
 class OrdersController < ApplicationController
-  before_action :set_orders, only: [:create, :index]
+  before_action :set_orders, only: [:create, :index, :destroy]
   def index
-    products = Order.where(user_id: @current_user.id).pluck('product_id')
+    products = Order.where(user_id: @current_user.id, visible: true).pluck('product_id')
     @orders = Product.find(products)
   end
   
   def show
+    Order.find(1)
   end
 
   def new
     @orders = Order.new
   end
   
-  def create_user
-  end
-  
   def create
-    # check if users token exist  if it exist create order else create user then create order.
     @orders = Order.create({user_id: @current_user.id, product_id: params[:product_id]})
-    redirect_back fallback_location: products_path
+    if @orders.save
+       redirect_to @orders, notice: "Order was successfully created."
+    else
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: @orders.errors, status: :unprocessable_entity }
+    end
   end
 
   def destroy
-    @orders.destroy
+    @order = Order.find_by(user_id: @current_user.id , product_id: params[:id])
+    @order.update_columns(visible: false)
     respond_to do |format|
       format.html { redirect_to orders_url, notice: "orders was successfully destroyed." }
       format.json { head :no_content }

@@ -1,3 +1,9 @@
+
+<div class="container">
+  <div class="row" id="info">
+    <div class="col-12 col-md-4 mx-auto p-5 mt-5">
+      <h1 class="text-center mb-3"> Add product</h1>
+  
 <%= form_with(model: product) do |form| %>
   <% if product.errors.any? %>
     <div id="error_explanation">
@@ -13,30 +19,24 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "form-control", required: true %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.text_field :description, class: "form-control", required: true %>
   </div>
 
   <div class="field">
     <%= form.label :price %>
-    <%= form.text_field :price %>
+    <%= form.text_field :price, class: "form-control", required: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
-
-  <div class="field">
-    <%= form.label :disabled %>
-    <%= form.check_box :disabled %>
-  </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Add product', class: "btn btn-warning col-12", required: true%>
   </div>
 <% end %>
+    </div>
+  </div>
+</div>

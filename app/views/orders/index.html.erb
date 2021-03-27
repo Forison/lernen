@@ -12,23 +12,37 @@
   
   
   <div class="row p-5">
+    <% if @orders.size > 0 %>
     <div class="col-12 justify-content-between align-items-center d-flex">
-      <span class="text-center">Total cost of items in cart: <%= @orders.size > 0 ? sum_total()[:sum] : '' %> $</span>
-      <%= link_to 'Checkout', new_product_path, class: "btn btn-warning btn-lg float-right m-5" %>
+      <span class="text-center">Total cost of items in cart:<strong> <%= sum_total()%> $ </strong></span>
+      <%= link_to 'Checkout', order_path(1), class: "btn btn-warning btn-lg float-right m-5" %>
     </div>
     <% @orders.each do |record| %>
-      <div class="col-4 mb-1">
+      <div class="col-12 col-md-3 col-lg-4 mb-1">
         <div class="card">
           <img class="img-fluid" src="<%= asset_path('create21.jpg')%>" alt="default_avatar"/>
           <div class="card-body">
-            <h3 class="card-title"><%= record.title%></h3>
+            <h3 class="card-title"><%= record.title%><%= record.id%></h3>
             <p class="card-text"><%= record.description %></p>
-            <p class="card-text">Price: <%= record.price %> $</p>
+            <p class="card-text">Price: <%= record.price %> $</p>            
+            <p class="card-text">amount selected: <%= my_selections(record.id) %> </p>
+            <div class="position-absolute d-flex incDec">    
+              <%= form_with url: orders_path, class:"mb-1 mr-1", method: :post do |form|  %>
+                <%= hidden_field_tag(:product_id, "#{record.id}") %>
+                <%= form.submit "U", class: "btn btn-success" %>
+              <% end %>
+              <%= form_with url: order_path(record.id), class:"ml-auto", method: :delete do |form| %>
+                <%= hidden_field_tag(:product_id, "#{record.id}") %>
+                <%= form.submit "D", class: "btn btn-danger" %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     <% end %>
+    <% end %>
   </div>
+
   <div>
   </div>
 </div>
