@@ -10,10 +10,15 @@
     </div>
   </nav>
   <div class="clearFix"></div>
-  <div class="row">
+  
+  <div class="row p-5">
+    <div class="col-12 justify-content-between align-items-center d-flex">
+      <span class="text-center">Total cost of items in cart: 12112</span>
+      <%= link_to 'Checkout', new_product_path, class: "btn btn-warning btn-lg float-right m-5" %>
+    </div>
     <% @orders.each do |record| %>
-      <div class="col-4 mb-2">
-        <div class="card shadow-lg">
+      <div class="col-4 mb-1">
+        <div class="card">
           <img class="img-fluid"  src="<%= asset_path('create21.jpg')%>" alt="default_avatar"/>
           <div class="card-body">
             <h3 class="card-title"><%= record.title%></h3>
@@ -23,6 +28,8 @@
       </div>
     <% end %>
   </div>
+  <div>
+  </div>
 </div>
-
 <br>
+
