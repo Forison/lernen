@@ -37,6 +37,7 @@ class OrdersController < ApplicationController
     def create_user_login
       user = User.create
       cookies[:auth_user] = user.id
+      user
     end
 
     def orders_params

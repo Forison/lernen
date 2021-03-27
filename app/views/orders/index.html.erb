@@ -3,26 +3,27 @@
 
 <div class="container">
   <nav class="navbar d-flex justify-content-between align-items-center bg-warning fixed-top">
-    <h1 class="title">My shopping Cart</h1>
+    <%= link_to "My Shopping cart", products_path %>
     <div>
       <a  href="<%= orders_path%>" class="mini-text-1">My Cart</a>
       <a  href="<%= products_path%>" class="mini-text-1">Checkouts</a>
     </div>
   </nav>
-  <div class="clearFix"></div>
+  
   
   <div class="row p-5">
     <div class="col-12 justify-content-between align-items-center d-flex">
-      <span class="text-center">Total cost of items in cart: 12112</span>
+      <span class="text-center">Total cost of items in cart: <%= @orders.size > 0 ? sum_total()[:sum] : '' %> $</span>
       <%= link_to 'Checkout', new_product_path, class: "btn btn-warning btn-lg float-right m-5" %>
     </div>
     <% @orders.each do |record| %>
       <div class="col-4 mb-1">
         <div class="card">
-          <img class="img-fluid"  src="<%= asset_path('create21.jpg')%>" alt="default_avatar"/>
+          <img class="img-fluid" src="<%= asset_path('create21.jpg')%>" alt="default_avatar"/>
           <div class="card-body">
             <h3 class="card-title"><%= record.title%></h3>
             <p class="card-text"><%= record.description %></p>
+            <p class="card-text">Price: <%= record.price %> $</p>
           </div>
         </div>
       </div>
