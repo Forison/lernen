@@ -5,8 +5,8 @@
   <nav class="navbar d-flex justify-content-between align-items-center bg-warning fixed-top">
     <h1 class="title">Shops</h1>
     <div>
-      <a>My Cart</a>
-      <a>Checkouts</a>
+      <a  href="<%= orders_path%>" class="mini-text-1">My Cart</a>
+      <a  href="<%= products_path%>" class="mini-text-1">Checkouts</a>
     </div>
   </nav>
   <div class="clearFix"></div>
@@ -18,7 +18,10 @@
           <div class="card-body">
             <h3 class="card-title"><%= record.title%></h3>
             <p class="card-text"><%= record.description %></p>
-            <%= button_tag 'Add to Cart', action: "" , class: "btn btn-warning btn-lg text-light"%>
+
+            <%= button_to 'Add to Cart', {:controller => "orders", :action => "create", product_id: record.id} , 
+            :method=>:post, class: "btn btn-lg btn-warning text-light" %>
+            <span> <%= hasAdded?(@current_user, record.id) ? 'already added to cart' : '' %> </span>
           </div>
         </div>
       </div>

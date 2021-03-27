@@ -25,13 +25,12 @@ ActiveRecord::Schema.define(version: 2021_03_27_005231) do
     t.string "title"
     t.string "description"
     t.string "price"
-    t.boolean "disabled"
+    t.boolean "disabled", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
