@@ -29,12 +29,9 @@ then in as little time as possible to implement this shop.
 - Add roles
 - Code optimization
 
-## Live demo
-- [Link of dem]
-
 ## video presenation demo
 
-- [Link of video]
+- [Video presentation](https://www.loom.com/share/a37143a5d4b04e5fb36b4a51706db804)
 
 ## Usage
 
@@ -64,7 +61,7 @@ $ git clone https://github.com/forison/lernen.git
 $ cd social-network
 ```
 
-> run ```bundle exec rspec```
+> run ```rspec```
 
 ## Deployment
 
