@@ -65,9 +65,7 @@ $(document).on('turbolinks:load', function() {
   });
 
   $("#finish-but").on('click', (e)=> {
-    setTimeout(() => {
       Cookies.set('checkout', '');  
-    }, 4000);
   });
 
   const setForm = () =>{
