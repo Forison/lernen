@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :set_orders, only: [:create, :index, :destroy, :show, :checkout]
   def index
-    products = Order.where(user_id: @current_user.id, visible: true).pluck('product_id')
+    products = Order.product_from_order(@current_user)
     @orders = Product.find(products)
   end
   

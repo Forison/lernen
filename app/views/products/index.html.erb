@@ -3,10 +3,13 @@
     <%= link_to "Shops", products_path, class: "a brand" %>
     <div>
       <p id="notice" class="text-center"><%= notice %></p>
-      <a  href="<%= orders_path%>" class="mini-text-1 mr-4 a">My Cart</a>
-      <% if cookies[:checkout] != ''%>
-        <a  href="<%= order_path(1) %>" class="mini-text-1 a">Checkouts</a>
+      <% if cookies[:auth_user] != '' %>
+        <a  href="<%= orders_path%>" class="mini-text-1 mr-4 a">My Cart</a>
+        <% if cookies[:checkout] != ''%>
+          <a  href="<%= order_path(1) %>" class="mini-text-1 a">Checkouts</a>
+        <% end %>
       <% end %>
+
     </div>
   </nav>
   <br>

@@ -1,5 +1,5 @@
 module ProductsHelper
   def hasAdded?(user, product)
-    Order.where(user_id: user, product_id: product).length === 0 ? false : true
+    Order.prod_len(user, product) === 0 ? false : true
   end
 end
