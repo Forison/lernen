@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
-    @product.destroy
+    @product.update_columns(disabled: false)
     respond_to do |format|
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
