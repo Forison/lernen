@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Checkout, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
+  describe 'Association of checkout' do 
+    it { should belong_to(:user) }
+  end
 end
