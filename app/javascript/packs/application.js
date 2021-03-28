@@ -5,6 +5,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap';
+import Cookies from 'js-cookie'
 
 Rails.start()
 Turbolinks.start()
@@ -13,10 +14,11 @@ ActiveStorage.start()
 
 
 $(document).on('turbolinks:load', function() {
+  const Store = {}
   $("#payment").hide();
   $("#finish").hide();
   
-  function validation(){
+  const validation = () => {
     var account = $("input.account").val();
     var bank = $("input.bank").val();
     $("#payment-but").on('click', function(e){
@@ -33,5 +35,52 @@ $(document).on('turbolinks:load', function() {
     });
     return true;
   }
-  validation()
+  
+  $("#info-but").on('click', (e)=> {
+    e.preventDefault();
+    var street = $("input.street").val();
+    Store.street = street;
+    var zipcode = $("input.zipcode").val();
+    Store.zipcode = zipcode;
+    var name = $("input.name").val();
+    Store.name = name;
+    var country = $("input.country").val();
+    Store.country = country;
+    Cookies.set('checkout', Store);
+    if(street && name && zipcode && country){
+      $("#payment").show();
+      $("#info").hide();
+    }
+  })
+  
+  $("#payment-but").on('click', (e)=>{
+    e.preventDefault();
+    var account = $("input.account").val();
+    Store.account = account;
+    var bank = $("input.bank").val();
+    Store.bank = bank;
+    Cookies.set('checkout', Store);
+    $("#payment").hide();
+    $("#finish").show();
+  });
+
+  $("#finish-but").on('click', (e)=> {
+    setTimeout(() => {
+      Cookies.set('checkout', '');  
+    }, 4000);
+  });
+
+  const setForm = () =>{
+    if(Cookies.get('checkout')){
+      const hash = JSON.parse(Cookies.get('checkout'))
+      $("input.street").val(hash.street);
+      $("input.zipcode").val(hash.zipcode);
+      $("input.name").val(hash.name);
+      $("input.country").val(hash.country);
+      $("input.account").val(hash.account);
+      $("input.bank").val(hash.bank);
+    }
+  } 
+  setForm();
+  validation();
 });

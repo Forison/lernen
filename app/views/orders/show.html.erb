@@ -1,15 +1,14 @@
 <div class="container">
+<%= form_with url: checkout_path, class:"ml-auto", method: :post do |form| %>
   <div class="row" id="info">
     <div class="col-12 col-md-4 mx-auto p-5 mt-5">
       <h1 class="text-center mb-3"> Payment Info </h1>
-      <%= form_with model: @order do |form| %>
-        <%= form.text_field :street, class: "form-control", placeholder: "No22 opoku nsiah", required: true%>
-        <%= form.text_field :zipcode, class: "form-control mt-2" , placeholder: "Account(210210201012)", required: true%>
-        <%= form.text_field :country, class: "form-control mt-2", placeholder: "Ghana", required: true%>
-        <%= form.text_field :name, class: "form-control mt-2", placeholder: "Addo", required: true%>
-        <%= form.text_field :email, class: "form-control mt-2", placeholder: "addoboakyeforison@gmail.com"%>
-        <%= form.submit class: "btn btn-warning mt-3 col-12"%>
-      <% end %>
+        <%= form.text_field :street, class: "form-control street", placeholder: "No22 opoku nsiah",required: true%>
+        <%= form.text_field :zipcode, class: "form-control mt-2 zipcode" , placeholder: "6666", required: true%>
+        <%= form.text_field :country, class: "form-control mt-2 country", placeholder: "Ghana", required: true%>
+        <%= form.text_field :name, class: "form-control mt-2 name", placeholder: "Addo", required: true%>
+        <%= form.email_field :email, class: "form-control mt-2 email", placeholder: "addoboakyeforison@gmail.com"%>
+        <button type="button" class= "btn btn-warning mt-3 col-12" id= "info-but" >save</button>
     </div>
   </div>
 
@@ -17,25 +16,21 @@
     <div class="col-12 col-md-4 mx-auto p-5 mt-5">
       <h1 class="text-center mb-3"> Payment Details </h1>
       <p id="payment-info"><p>
-      <%= form_with model: @order do |form| %>
-        <%= form.text_field :account, class: "form-control account", placeholder: "Account(210210201012)"%>
+        <%= form.number_field :account, class: "form-control account", placeholder: "Account(210210201012)"%>
         <%= form.text_field :bank, class: "form-control mt-2 bank", placeholder: "Barclays bank"%>
-        <%= form.submit class: "btn btn-warning mt-3 col-12", id: "payment-but"%>
-      <% end %>
+        <button type="button" class= "btn btn-warning mt-3 col-12" id= "payment-but" >save</button>
     </div>
   </div>
 
   <div class="row" id="finish">
-  <div class="col-12 col-md-4 mx-auto p-5 mt-5">
-    <h1 class="text-center mb-3"> Proceed to Checkout </h1>
-    <p id="finish-info"><p>
-    <%= form_with model: @order do |form| %>
+    <div class="col-12 col-md-4 mx-auto p-5 mt-5">
+      <h1 class="text-center mb-3"> Proceed to Checkout </h1>
+      <span class="text-center">Total cost of items in cart:<strong> <%= sum_total()%> $ </strong></span>
       <%= form.submit 'Finish', class: "btn btn-warning mt-3 col-12", id: "finish-but"%>
-    <% end %>
+    </div>
   </div>
-</div>
+<%end%>
 <div class= "text-center">
-  <%= link_to 'Show', @order %> |
   <%= link_to 'Back', products_path %>
 </div>
 </div>

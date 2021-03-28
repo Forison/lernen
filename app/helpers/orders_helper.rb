@@ -11,4 +11,5 @@ module OrdersHelper
   def my_selections(arg)
     @current_user.orders.where(product_id: arg, visible: true).size
   end
+
 end

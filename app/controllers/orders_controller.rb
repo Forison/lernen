@@ -1,25 +1,43 @@
 class OrdersController < ApplicationController
-  before_action :set_orders, only: [:create, :index, :destroy]
+  before_action :set_orders, only: [:create, :index, :destroy, :show, :checkout]
   def index
     products = Order.where(user_id: @current_user.id, visible: true).pluck('product_id')
     @orders = Product.find(products)
   end
   
   def show
-    Order.find(1)
+    @order = Order.find(1)
   end
-
+  
+  def checkout 
+    check = @current_user.checkouts.build({
+      details: {
+        :street => params[:street], 
+        :zipcode => params[:zipcode], 
+        :country => params[:country], 
+        :name => params[:name], 
+        :email =>params[:email], 
+        :account =>params[:account], 
+        :bank =>params[:bank],
+      }
+    })
+    if check.save 
+      redirect_back fallback_location: checkout_path
+    else
+      redirect_back fallback_location: checkout_path
+    end
+  end
+  
   def new
     @orders = Order.new
   end
   
   def create
     @orders = Order.create({user_id: @current_user.id, product_id: params[:product_id]})
-    if @orders.save
-       redirect_to @orders, notice: "Order was successfully created."
+    if @orders.visible
+      redirect_to fallback_location: orders_path
     else
-      format.html { render :new, status: :unprocessable_entity }
-      format.json { render json: @orders.errors, status: :unprocessable_entity }
+      redirect_back fallback_location: orders_path
     end
   end
 
