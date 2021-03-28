@@ -45,7 +45,8 @@ $ git clone https://github.com/forison/lernen.git
 ```sh
 $ cd lernen
 ```
-
+> run rails `rails db:create && rails db:migrate` to set up db
+> Populate model by running ```rails db:seed```
 > open by issuing the command ```rails s```
 
 ## Testing
