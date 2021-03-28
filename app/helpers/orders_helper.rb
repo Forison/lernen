@@ -1,11 +1,13 @@
 module OrdersHelper
-  def sum_total()
+  def sum_total
     price_list = []
+    purchase=[]
     products_id = @current_user.orders
     products_id.each do |val|
       price_list << Product.find(val.product_id).price
+      purchase << val.product_id
     end
-    price_list.map{|val| val.to_i}.reduce(:+)
+    return {sum: price_list.map{|val| val.to_i}.reduce(:+), purchase: purchase}
   end
 
   def my_selections(arg)

@@ -65,6 +65,10 @@ $(document).on('turbolinks:load', function() {
   });
 
   $("#finish-but").on('click', (e)=> {
+    const sum = $("input.sum").val();
+    const purchase = $("input.purchase").val();
+    Store.sum = sum;
+    Store.purchase = purchase;
       Cookies.set('checkout', '');  
   });
 
@@ -77,6 +81,9 @@ $(document).on('turbolinks:load', function() {
       $("input.country").val(hash.country);
       $("input.account").val(hash.account);
       $("input.bank").val(hash.bank);
+      $("input.sum").val(hash.sum);
+      $("input.purchase").val(hash.purchase);
+      
     }
   } 
   setForm();

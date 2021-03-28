@@ -19,12 +19,18 @@ class OrdersController < ApplicationController
         :email =>params[:email], 
         :account =>params[:account], 
         :bank =>params[:bank],
+        :total => params[:sum],
+        :items => params[:purchase]
       }
     })
     if check.save 
-      redirect_back fallback_location: checkout_path
+      respond_to do |format|
+        format.html { redirect_back fallback_location: checkout_path, notice: "orders was successfully destroyed." }
+      end
     else
-      redirect_back fallback_location: checkout_path
+      respond_to do |format|
+        format.html { redirect_back fallback_location: checkout_path, notice: "orders was successfully destroyed." }
+      end
     end
   end
   
@@ -35,18 +41,27 @@ class OrdersController < ApplicationController
   def create
     @orders = Order.create({user_id: @current_user.id, product_id: params[:product_id]})
     if @orders.visible
-      redirect_to fallback_location: orders_path
+      respond_to do |format|
+        format.html { redirect_to fallback_location: orders_url, notice: "New order was successfully added." }
+      end
     else
-      redirect_back fallback_location: orders_path
+      respond_to do |format|
+        format.html { redirect_back fallback_location: orders_url, notice: "Order was successfully destroyed." }
+      end
     end
   end
 
   def destroy
     @order = Order.find_by(user_id: @current_user.id , product_id: params[:id])
     @order.update_columns(visible: false)
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: "orders was successfully destroyed." }
-      format.json { head :no_content }
+    if !@order.visible
+      respond_to do |format|
+        format.html { redirect_to orders_url, notice: "orders was successfully destroyed." }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to orders_url, notice: "orders couldd not be destroyed try again" }
+      end
     end
   end
 
@@ -59,9 +74,5 @@ class OrdersController < ApplicationController
       user = User.create
       cookies[:auth_user] = user.id
       user
-    end
-
-    def orders_params
-      params.require(:orderst).permit(:product_id)
     end
 end

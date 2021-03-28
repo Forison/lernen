@@ -25,7 +25,11 @@
   <div class="row" id="finish">
     <div class="col-12 col-md-4 mx-auto p-5 mt-5">
       <h1 class="text-center mb-3"> Proceed to Checkout </h1>
-      <span class="text-center">Total cost of items in cart:<strong> <%= sum_total()%> $ </strong></span>
+      <span class="text-center">Total cost of items in cart:
+        <strong id="sum-total"> <%= sum_total[:sum]%> </strong>$
+      </span>
+      <%= form.hidden_field :sum, value: sum_total[:sum] %>
+      <%= form.hidden_field :purchase, value: sum_total[:purchase] %>
       <%= form.submit 'Finish', class: "btn btn-warning mt-3 col-12", id: "finish-but"%>
     </div>
   </div>
