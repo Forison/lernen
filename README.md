@@ -61,7 +61,7 @@ $ git clone https://github.com/forison/lernen.git
 > cd into the directory
 
 ```sh
-$ cd social-network
+$ cd lernen
 ```
 
 > run ```rspec```
