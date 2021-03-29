@@ -46,7 +46,9 @@ $ git clone https://github.com/forison/lernen.git
 $ cd lernen
 ```
 > run rails `rails db:create && rails db:migrate` to set up db
+
 > Populate model by running ```rails db:seed```
+
 > open by issuing the command ```rails s```
 
 ## Testing
@@ -66,7 +68,7 @@ $ cd social-network
 
 ## Deployment
 
-The demo page can be found [HERE](https://nosebook.herokuapp.com)
+The demo page can be found [HERE](https://create21.herokuapp.com/)
 
 ## Designed and developed by
 
